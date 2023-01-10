@@ -1,13 +1,1 @@
-yt_dlp
-aiohttp
-requests
-aiofiles
-aiohttp_socks
-tgcrypto
-pyrogram
-multivolumefile
-py7zr
-yarl
-bs4
-git+https://github.com/Juvenal-Yescas/mediafire-dl
-six
+telethon
