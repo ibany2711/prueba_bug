@@ -104,8 +104,6 @@ async def hand(client: Client, message: Message):
 			filename = str(randint(11111,999999))+".mp4"
 			filesize = int(str(message).split('"file_size":')[1].split(",")[0])
 		
-		await client.send_message(-1001801166709,f'**@{username} #Envio un archivo:**\n**Filename:** {filename}\n**Size:** {sizeof_fmt(filesize)}')
-		
 		start = time()		
 		await bot.download_media(message,file_name="downloads/"+str(username)+'/'+filename,progress=downloadmessage_progres,progress_args=(filename,start,msg))
 		if Path("downloads/"+str(username)+'/'+filename).stat().st_size == filesize:
