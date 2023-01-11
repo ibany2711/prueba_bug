@@ -1,17 +1,21 @@
-from telethon import TelegramClient as Client
-from telethon import events
+import tgcrypto
+from pyrogram import Client , filters
+from pyrogram.types import Message
+from random import randint
+api_id = 16356512
+api_hash = "3be954be110a796e8c0b18f3604a5f2c"
+bot_token = "5887975865:AAF8bnF51ZkdHVBlKef3BYSNRs8QaBau8Ew"
+bot = Client("session",api_id=api_id,api_hash=api_hash,bot_token=bot_token,workers=6 )
 
-bot = Client('bot',api_id=19961504,api_hash="28de3a8f4b68b388bfe47bf84d1b124b").start(bot_token="5639088541:AAH4ldwbj71Ma0yZa4kBYqBN-xglpxy4vOg")
-
-@bot.on(events.NewMessage)
-async def messages(event):
-    username = event.message.chat.username
-    if event.message.media:	
-        await bot.send_message(username,"Comenzando descarga")
-        await bot.download_media(event.message.media)
-        await bot.send_message(username,"Completada")
-if __name__ == "__main__":
-	bot.run_until_disconnected()
+@bot.on_message(filters.media)
+def handler(client: Client, message: Message):
+  #if message.video or message.sticker or message.document or message.animation or message.audio or message.photo:  
+  msg = message.reply("**Recopilando información**")
+  filename = str(randint(11111,999999))+".mp4"
+  message.download()
+  message.reply("Descarga exitosa")
+print("started")
+bot.run()
 
 
 
