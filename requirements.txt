@@ -42,9 +42,6 @@ pycparser==2.21
 pycryptodome==3.16.0
 pycryptodomex==3.15.0
 pymegatools==1.0.2
-PyMySQL==1.0.2
-pyobidl==1.1.0
-pyobigram==2.1.0
 pyping==0.0.6
 pyppmd==1.0.0
 Pyrogram==2.0.62
