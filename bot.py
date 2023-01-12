@@ -1064,7 +1064,7 @@ async def delete_draft_y_down_media(client: Client, message: Message):
 		print(len(downlist[username]))
 		return
 
-@bot.on_message(filters.regex("https://") | filters.regex("http://") & filters.private)
+@bot.on_message((filters.regex("https://") | filters.regex("http://")) & filters.private)
 async def down_link(client: Client, message: Message):
 	print(message)
 	global procesos
