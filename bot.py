@@ -1132,7 +1132,7 @@ async def down_link(client: Client, message: Message):
 	else:
 		j = str(root[username]["actual_root"])+"/"
 
-		url = message
+		url = message.text
 		async with aiohttp.ClientSession() as session:
 			async with session.get(url) as r:
 				try:
