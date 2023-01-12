@@ -315,6 +315,7 @@ async def zips(client: Client, message: Message):
 	else:pass
 	sip = int(message.text.split(" ")[1])
 	Configs[username]["z"] = sip
+	await send_config()
 	await send("✅ 𝑫𝒐𝒏𝒆")
 
 
@@ -1066,7 +1067,10 @@ async def delete_draft_y_down_media(client: Client, message: Message):
 @bot.on_message(filters.regex("https://") | filters.regex("http://") & filters.private)
 async def down_link(client: Client, message: Message):
 	global procesos
-	username = message.from_user.username
+	try:username = message.from_user.username
+	except:
+		print("Username no valido")
+		return
 	send = message.reply
 	user_id = message.from_user.id
 	try:await get_messages()
