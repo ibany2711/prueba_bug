@@ -799,32 +799,40 @@ async def up(client: Client, message: Message):
 	username = message.from_user.username
 	send = message.reply
 	user_id = message.from_user.id
+	print(11)
 	try:await get_messages()
 	except:await send_config()
+	print(12)
 	if comprobacion_de_user(username) == False:
 		await send("⛔ 𝑵𝒐 𝒕𝒊𝒆𝒏𝒆 𝒂𝒄𝒄𝒆𝒔𝒐")
 		return
 	else:pass
+	print(13)
 	if username not in boss and Configs["s"] == "Off":
 		await client.send_message(username,'⛔𝑬𝒔𝒕𝒂 𝒇𝒖𝒏𝒄𝒊𝒐𝒏 𝒆𝒔𝒕𝒂 𝒂𝒑𝒂𝒈𝒂𝒅𝒂')
 		return
 	else: pass	
+	print(14)
 	comp = comprobar_solo_un_proceso(username) 
 	if comp != False:
 		await send(comp)
 		return
 	else:pass
+	print(15)
 	total_proc = total_de_procesos()
 	if total_proc != False:
 		await send(total_proc)
 		return
 	else:pass
-	mensaje_s = "s"
+	print(16)
 	list = int(message.text.split("/up")[1])		
 	msgh = files_formatter(str(root[username]["actual_root"]),username)
+	print(17)
 	try:
 		path = str(root[username]["actual_root"]+"/")+msgh[1][list]
+		print(18)
 		msg = await send(f"𝑺𝒆𝒍𝒆𝒄𝒄𝒊𝒐𝒏𝒂𝒅𝒐 **{path}**")
+		print(19)
 		if Configs[username]["m"] == "u":
 			await uploadfile(path,user_id,msg,username)
 		elif Configs[username]["m"] == "e":
