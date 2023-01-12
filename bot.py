@@ -542,7 +542,7 @@ async def rmdir(client: Client, message: Message):
 		await send("⛔ 𝑵𝒐 𝒕𝒊𝒆𝒏𝒆 𝒂𝒄𝒄𝒆𝒔𝒐")
 		return
 	else:pass
-	list = message.text.split("/rmdir")[1]	
+	list = message.text.split(" ")[1]	
 	filespath = Path(str(root[username]["actual_root"])+"/")
 	msgh = files_formatter(str(root[username]["actual_root"]),username)
 	try:
@@ -712,7 +712,7 @@ async def mv(client: Client, message: Message):
 			await bot.send_message(username,ex)
 			return
 
-@bot.on_message(filters.command("rename", prefixes="/")& filters.private)
+@bot.on_message(filters.command("rename", prefixes="/") & filters.private)
 async def rename(client: Client, message: Message):	
 	username = message.from_user.username
 	send = message.reply
@@ -794,7 +794,7 @@ async def ls(client: Client, message: Message):
 	await limite_msg(msg[0],username)
 	return
 
-@bot.on_message(filters.command("up", prefixes="/")& filters.private)
+@bot.on_message(filters.command("up", prefixes="/") & filters.private)
 async def up(client: Client, message: Message):	
 	username = message.from_user.username
 	send = message.reply
@@ -825,7 +825,7 @@ async def up(client: Client, message: Message):
 		return
 	else:pass
 	print(16)
-	list = int(message.text.split("/up")[1])		
+	list = int(message.text.split(" ")[1])		
 	msgh = files_formatter(str(root[username]["actual_root"]),username)
 	print(17)
 	try:
@@ -834,7 +834,7 @@ async def up(client: Client, message: Message):
 		msg = await send(f"𝑺𝒆𝒍𝒆𝒄𝒄𝒊𝒐𝒏𝒂𝒅𝒐 **{path}**")
 		print(19)
 		if Configs[username]["m"] == "u":
-			await uploadfile(path,user_id,msg,username)
+			fd = await uploadfile(path,user_id,msg,username)
 		elif Configs[username]["m"] == "e":
 			if len(Urls[username]) >= 10  and username not in boss:
 				await msg.edit('⛔️ 𝑬𝒍 𝒍𝒊𝒎𝒊𝒕𝒆 𝒅𝒆 𝒍𝒊𝒏𝒌𝒔 𝒇𝒖𝒆 𝒑𝒂𝒔𝒂𝒅𝒐 , 𝒖𝒕𝒊𝒍𝒊𝒛𝒆 **/deletelinks**')
@@ -848,7 +848,7 @@ async def up(client: Client, message: Message):
 	except Exception as ex:
 		await send(ex)
 
-@bot.on_message(filters.command("tg", prefixes="/")& filters.private)
+@bot.on_message(filters.command("tg", prefixes="/") & filters.private)
 async def tg(client: Client, message: Message):	
 	username = message.from_user.username
 	send = message.reply
@@ -884,7 +884,7 @@ async def tg(client: Client, message: Message):
 		return
 
 #procesos
-@bot.on_message(filters.command("view_process", prefixes="/")& filters.private)
+@bot.on_message(filters.command("view_process", prefixes="/") & filters.private)
 async def view_process(client: Client, message: Message):	
 	global procesos
 	username = message.from_user.username
@@ -898,7 +898,7 @@ async def view_process(client: Client, message: Message):
 	await send(f"𝑬𝒍 𝒃𝒐𝒕 𝒕𝒊𝒆𝒏𝒆 𝒂𝒄𝒕𝒊𝒗𝒐(𝒔) {str(procesos)} 𝒅𝒆 15 ")
 	return
 
-@bot.on_message(filters.command("cancel", prefixes="/")& filters.private)
+@bot.on_message(filters.command("cancel", prefixes="/") & filters.private)
 async def cancel(client: Client, message: Message):	
 	global procesos
 	username = message.from_user.username
@@ -931,24 +931,32 @@ async def cancel(client: Client, message: Message):
 		return
 
 #comandos de admin
-@bot.on_message(filters.command("supr_process", prefixes="/")& filters.private)
+@bot.on_message(filters.command("supr_process", prefixes="/") & filters.private)
 async def supr_process(client: Client, message: Message):	
 	global procesos
 	username = message.from_user.username
 	send = message.reply
 	try:await get_messages()
 	except:await send_config()
+	if comprobacion_de_user(username) == False:
+		await send("⛔ 𝑵𝒐 𝒕𝒊𝒆𝒏𝒆 𝒂𝒄𝒄𝒆𝒔𝒐")
+		return
+	else:pass
 	if username in boss:
 		procesos = 0
 		await send(f"✅ 𝑫𝒐𝒏𝒆")
 	else:return
 
-@bot.on_message(filters.command("change_status", prefixes="/")& filters.private)
+@bot.on_message(filters.command("change_status", prefixes="/") & filters.private)
 async def change_status(client: Client, message: Message):	
 	username = message.from_user.username
 	send = message.reply
 	try:await get_messages()
 	except:await send_config()
+	if comprobacion_de_user(username) == False:
+		await send("⛔ 𝑵𝒐 𝒕𝒊𝒆𝒏𝒆 𝒂𝒄𝒄𝒆𝒔𝒐")
+		return
+	else:pass
 	if username in boss:
 		if Configs["s"] == "Off":
 			Configs["s"] = "On"
@@ -960,12 +968,16 @@ async def change_status(client: Client, message: Message):
 		await send("🚷 𝑪𝒐𝒎𝒂𝒏𝒅𝒐 𝒑𝒂𝒓𝒂 𝒂𝒅𝒎𝒊𝒏𝒊𝒔𝒕𝒓𝒂𝒅𝒐𝒓𝒆𝒔")
 		return
 
-@bot.on_message(filters.command("users", prefixes="/")& filters.private)
+@bot.on_message(filters.command("users", prefixes="/") & filters.private)
 async def users(client: Client, message: Message):	
 	username = message.from_user.username
 	send = message.reply
 	try:await get_messages()
 	except:await send_config()
+	if comprobacion_de_user(username) == False:
+		await send("⛔ 𝑵𝒐 𝒕𝒊𝒆𝒏𝒆 𝒂𝒄𝒄𝒆𝒔𝒐")
+		return
+	else:pass
 	if username in boss:	
 		total = len(Configs) - 13
 		message = "**Usuarios: **"+ str(total)+'\n\n'
@@ -990,12 +1002,16 @@ async def users(client: Client, message: Message):
 		await send("🚷 𝑪𝒐𝒎𝒂𝒏𝒅𝒐 𝒑𝒂𝒓𝒂 𝒂𝒅𝒎𝒊𝒏𝒊𝒔𝒕𝒓𝒂𝒅𝒐𝒓𝒆𝒔")
 		return
 
-@bot.on_message(filters.command("add", prefixes="/")& filters.private)
+@bot.on_message(filters.command("add", prefixes="/") & filters.private)
 async def add(client: Client, message: Message):	
 	username = message.from_user.username
 	send = message.reply
 	try:await get_messages()
 	except:await send_config()
+	if comprobacion_de_user(username) == False:
+		await send("⛔ 𝑵𝒐 𝒕𝒊𝒆𝒏𝒆 𝒂𝒄𝒄𝒆𝒔𝒐")
+		return
+	else:pass
 	if username in boss:
 		list = message.text.split(" ")						
 		uss = list[1]
@@ -1012,6 +1028,10 @@ async def kick(client: Client, message: Message):
 	send = message.reply
 	try:await get_messages()
 	except:await send_config()
+	if comprobacion_de_user(username) == False:
+		await send("⛔ 𝑵𝒐 𝒕𝒊𝒆𝒏𝒆 𝒂𝒄𝒄𝒆𝒔𝒐")
+		return
+	else:pass
 	if username in boss:			
 		list = message.text.split(" ")
 		uss = list[1]
@@ -1029,6 +1049,10 @@ async def delete_draft_y_down_media(client: Client, message: Message):
 	send = message.reply
 	try:await get_messages()
 	except:await send_config()
+	if comprobacion_de_user(username) == False:
+		await send("⛔ 𝑵𝒐 𝒕𝒊𝒆𝒏𝒆 𝒂𝒄𝒄𝒆𝒔𝒐")
+		return
+	else:pass
 	if str(message).split('"file_name": ')[1].split(",")[0].replace('"',"").endswith(".txt") and Configs[username]["m"] == "d" :
 		if message.from_user.is_bot: return
 		await borrar_de_draft(message,client,username)
@@ -1039,13 +1063,17 @@ async def delete_draft_y_down_media(client: Client, message: Message):
 		print(len(downlist[username]))
 		return
 
-@bot.on_message(filters.regex(".*https://.*") & filters.regex(".*http://.*") & filters.private)
+@bot.on_message(filters.regex(".*https://.*") | filters.regex(".*http://.*") & filters.private)
 async def down_link(client: Client, message: Message):
 	username = message.from_user.username
 	send = message.reply
 	user_id = message.from_user.id
 	try:await get_messages()
 	except:await send_config()
+	if comprobacion_de_user(username) == False:
+		await send("⛔ 𝑵𝒐 𝒕𝒊𝒆𝒏𝒆 𝒂𝒄𝒄𝒆𝒔𝒐")
+		return
+	else:pass
 	if "youtu.be/" in message or "twitch.tv/" in message or "youtube.com/" in message or "xvideos.com" in message or "xnxx.com" in message:
 		list = message.text.split(" ")
 		url = list[0]
@@ -1246,9 +1274,9 @@ def files_formatter(path,username):
 			size = Path(str(path)+"/"+n).stat().st_size
 		except: pass
 		if not "." in n:
-			msg+=f"**{i}**📂 `{n}` `| -` \n" 
+			msg+=f"**{i}**📂 `{n}` `|` `-` \n" 
 		else:
-			msg+=f"**{i}**📄 `{n}` `| {sizeof_fmt(size)}` `|`**/up{i}**\n"
+			msg+=f"**{i}**📄 `{n}` `|` `{sizeof_fmt(size)}` \n"
 		i+=1
 	msg+= f"\n𝑬𝒍𝒊𝒎𝒊𝒏𝒂𝒓 𝒅𝒊𝒓𝒆𝒄𝒕𝒐𝒓𝒊𝒐 𝒓𝒂𝒊𝒛\n    **/deleteall**"
 	return msg , final
