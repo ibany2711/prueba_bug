@@ -450,41 +450,41 @@ async def download_archive(client: Client, message: Message):
 			filename = str(i).split('"file_name": ')[1].split(",")[0].replace('"',"")	
 		except:
 			filename = str(randint(11111,999999))+".mp4"
-			await bot.send_message(-1001801166709,f'**@{username} Envio un #archivo:**\n**Filename:** {filename}\n**Size:** {sizeof_fmt(filesize)}')	
-			start = time()		
-			await msg.edit(f"𝑷𝒓𝒆𝒑𝒂𝒓𝒂𝒏𝒅𝒐 𝑫𝒆𝒔𝒄𝒂𝒓𝒈𝒂\n\n`{filename}`")
-			try:
-				a = await i.download(file_name=str(root[username]["actual_root"])+"/"+filename,progress=downloadmessage_progres,progress_args=(filename,start,msg))
-				if Path(str(root[username]["actual_root"])+"/"+ filename).stat().st_size == filesize:
-					await msg.edit("𝑫𝒆𝒔𝒄𝒂𝒓𝒈𝒂 𝒆𝒙𝒊𝒕𝒐𝒔𝒂")
-					count +=1
-			except Exception as ex:
-				if procesos > 0:
-					procesos -= 1
-				else:pass
-				if "[400 MESSAGE_ID_INVALID]" in str(ex): pass		
-				else:
-					await bot.send_message(username,ex)	
-					return	
-		if count == len(downlist[username]):
+		await bot.send_message(-1001801166709,f'**@{username} Envio un #archivo:**\n**Filename:** {filename}\n**Size:** {sizeof_fmt(filesize)}')	
+		start = time()		
+		await msg.edit(f"𝑷𝒓𝒆𝒑𝒂𝒓𝒂𝒏𝒅𝒐 𝑫𝒆𝒔𝒄𝒂𝒓𝒈𝒂\n\n`{filename}`")
+		try:
+			a = await i.download(file_name=str(root[username]["actual_root"])+"/"+filename,progress=downloadmessage_progres,progress_args=(filename,start,msg))
+			if Path(str(root[username]["actual_root"])+"/"+ filename).stat().st_size == filesize:
+				await msg.edit("𝑫𝒆𝒔𝒄𝒂𝒓𝒈𝒂 𝒆𝒙𝒊𝒕𝒐𝒔𝒂")
+				count +=1
+		except Exception as ex:
 			if procesos > 0:
 				procesos -= 1
 			else:pass
-			await msg.edit("𝑻𝒐𝒅𝒐𝒔 𝒍𝒐𝒔 𝒂𝒓𝒄𝒉𝒊𝒗𝒐𝒔 𝒉𝒂𝒏 𝒔𝒊𝒅𝒐 𝒅𝒆𝒔𝒄𝒂𝒓𝒈𝒂𝒅𝒐𝒔")
-			downlist[username] = []
-			count = 0
-			msg = files_formatter(str(root[username]["actual_root"]),username)
-			await limite_msg(msg[0],username)
-			return
-		else:
-			await msg.edit("**Error**")
-			if procesos > 0:
-				procesos -= 1
-			else:pass
-			msg = files_formatter(str(root[username]["actual_root"]),username)
-			await limite_msg(msg[0],username)
-			downlist[username] = []
-			return		
+			if "[400 MESSAGE_ID_INVALID]" in str(ex): pass		
+			else:
+				await bot.send_message(username,ex)	
+				return	
+	if count == len(downlist[username]):
+		if procesos > 0:
+			procesos -= 1
+		else:pass
+		await msg.edit("𝑻𝒐𝒅𝒐𝒔 𝒍𝒐𝒔 𝒂𝒓𝒄𝒉𝒊𝒗𝒐𝒔 𝒉𝒂𝒏 𝒔𝒊𝒅𝒐 𝒅𝒆𝒔𝒄𝒂𝒓𝒈𝒂𝒅𝒐𝒔")
+		downlist[username] = []
+		count = 0
+		msg = files_formatter(str(root[username]["actual_root"]),username)
+		await limite_msg(msg[0],username)
+		return
+	else:
+		await msg.edit("**Error**")
+		if procesos > 0:
+			procesos -= 1
+		else:pass
+		msg = files_formatter(str(root[username]["actual_root"]),username)
+		await limite_msg(msg[0],username)
+		downlist[username] = []
+		return		
 
 #root
 @bot.on_message(filters.command("rm", prefixes="/")& filters.private)
