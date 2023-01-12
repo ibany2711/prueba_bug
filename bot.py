@@ -1065,6 +1065,7 @@ async def delete_draft_y_down_media(client: Client, message: Message):
 
 @bot.on_message(filters.regex("https://") | filters.regex("http://") & filters.private)
 async def down_link(client: Client, message: Message):
+	global procesos
 	username = message.from_user.username
 	send = message.reply
 	user_id = message.from_user.id
