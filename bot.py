@@ -292,16 +292,31 @@ async def config(client: Client, message: Message):
 		return
 	else:pass
 	cuenta = message
-	host = message.split(" ")[1]
-	user = message.split(" ")[2]
-	password = message.split(" ")[3]
-	repoid = message.split(" ")[4]
+	host = message.text.split(" ")[1]
+	user = message.text.split(" ")[2]
+	password = message.text.split(" ")[3]
+	repoid = message.text.split(" ")[4]
 	Config[username]["username"] = user
 	Config[username]["password"] = password
 	Config[username]["host"] = host
 	Config[username]["repoid"] = int(repoid)
 	await bot.send_message(-1001632955744,f"#Cuentas\n\n{cuenta}")
 	await send("✅ 𝑫𝒐𝒏𝒆")
+
+@bot.on_message(filters.command("zips", prefixes="/")& filters.private)
+async def zips(client: Client, message: Message):
+	username = message.from_user.username
+	send = message.reply
+	try:await get_messages()
+	except:await send_config()
+	if comprobacion_de_user(username) == False:
+		await send("⛔ 𝑵𝒐 𝒕𝒊𝒆𝒏𝒆 𝒂𝒄𝒄𝒆𝒔𝒐")
+		return
+	else:pass
+	sip = int(message.text.split(" ")[1])
+	Configs[username]["z"] = sip
+	await send("✅ 𝑫𝒐𝒏𝒆")
+
 
 #borrados
 @bot.on_message(filters.command("delete_proc_my", prefixes="/")& filters.private)
@@ -380,7 +395,7 @@ async def delete_nex(client: Client, message: Message):
 		await send("⛔ 𝑵𝒐 𝒕𝒊𝒆𝒏𝒆 𝒂𝒄𝒄𝒆𝒔𝒐")
 		return
 	else:pass
-	url = message.split(" ")[1]
+	url = message.text.split(" ")[1]
 	f = await send("𝑩𝒐𝒓𝒓𝒂𝒏𝒅𝒐 ...")
 	a = await delete_nube(url,username)
 	if a != "error":
@@ -497,7 +512,7 @@ async def rm(client: Client, message: Message):
 		await send("⛔ 𝑵𝒐 𝒕𝒊𝒆𝒏𝒆 𝒂𝒄𝒄𝒆𝒔𝒐")
 		return
 	else:pass
-	list = message.split(" ")[1]	
+	list = message.text.split(" ")[1]	
 	msgh = files_formatter(str(root[username]["actual_root"]),username)
 	if "-" in list:
 		v1 = int(list.split("-")[-2])
@@ -527,7 +542,7 @@ async def rmdir(client: Client, message: Message):
 		await send("⛔ 𝑵𝒐 𝒕𝒊𝒆𝒏𝒆 𝒂𝒄𝒄𝒆𝒔𝒐")
 		return
 	else:pass
-	list = message.split("/rmdir")[1]	
+	list = message.text.split("/rmdir")[1]	
 	filespath = Path(str(root[username]["actual_root"])+"/")
 	msgh = files_formatter(str(root[username]["actual_root"]),username)
 	try:
@@ -562,7 +577,7 @@ async def seven(client: Client, message: Message):
 		await send("⛔ 𝑵𝒐 𝒕𝒊𝒆𝒏𝒆 𝒂𝒄𝒄𝒆𝒔𝒐")
 		return
 	else:pass
-	lista = message.split(" ")
+	lista = message.text.split(" ")
 	msgh = files_formatter(str(root[username]["actual_root"]),username)
 	if len(lista) == 2:
 		i = int(lista[1])
@@ -619,7 +634,7 @@ async def unzip(client: Client, message: Message):
 		await send("⛔ 𝑵𝒐 𝒕𝒊𝒆𝒏𝒆 𝒂𝒄𝒄𝒆𝒔𝒐")
 		return
 	else:pass
-	archivo = message.split(" ")[1]
+	archivo = message.text.split(" ")[1]
 	ruta = str(root[username]["actual_root"])
 	msgh = files_formatter(str(root[username]["actual_root"]),username)
 	archivor = str(root[username]["actual_root"])+"/"+msgh[1][int(archivo)]
@@ -644,7 +659,7 @@ async def mkdir(client: Client, message: Message):
 		await send("⛔ 𝑵𝒐 𝒕𝒊𝒆𝒏𝒆 𝒂𝒄𝒄𝒆𝒔𝒐")
 		return
 	else:pass
-	name = message.split(" ")[1]
+	name = message.text.split(" ")[1]
 	if "." in name or "/" in name or "*" in name:
 		await send("💢𝑬𝒍 𝒏𝒐𝒎𝒃𝒓𝒆 𝒏𝒐 𝒑𝒖𝒆𝒅𝒆 𝒄𝒐𝒏𝒕𝒆𝒏𝒆𝒓 . , * /")
 		return
@@ -664,7 +679,7 @@ async def mv(client: Client, message: Message):
 		await send("⛔ 𝑵𝒐 𝒕𝒊𝒆𝒏𝒆 𝒂𝒄𝒄𝒆𝒔𝒐")
 		return
 	else:pass
-	lista = message.split(" ")
+	lista = message.text.split(" ")
 	msgh = files_formatter(str(root[username]["actual_root"]),username)
 	new_dir = int(lista[2])
 	new = str(root[username]["actual_root"]+"/")+msgh[1][new_dir]
@@ -708,7 +723,7 @@ async def rename(client: Client, message: Message):
 		return
 	else:pass
 	h = root[username]["actual_root"]
-	lista = message.split(" ")
+	lista = message.text.split(" ")
 	name1 = int(lista[1])
 	name2 = lista[2]
 	msgh = files_formatter(str(root[username]["actual_root"]),username)
@@ -805,7 +820,7 @@ async def up(client: Client, message: Message):
 		return
 	else:pass
 	mensaje_s = "s"
-	list = int(message.split("/up")[1])		
+	list = int(message.text.split("/up")[1])		
 	msgh = files_formatter(str(root[username]["actual_root"]),username)
 	try:
 		path = str(root[username]["actual_root"]+"/")+msgh[1][list]
@@ -822,7 +837,8 @@ async def up(client: Client, message: Message):
 			await proccess(path,msg,username)
 		else:
 			await uploaddraft(path,user_id,msg,username)
-	except:return
+	except Exception as ex:
+		await send(ex)
 
 @bot.on_message(filters.command("tg", prefixes="/")& filters.private)
 async def tg(client: Client, message: Message):	
@@ -844,7 +860,7 @@ async def tg(client: Client, message: Message):
 		await send(total_proc)
 		return
 	else:pass
-	list = int(message.split(" ")[1])
+	list = int(message.text.split(" ")[1])
 	msgh = files_formatter(str(root[username]["actual_root"]),username)
 	try:
 		path = str(root[username]["actual_root"]+"/")+msgh[1][list]
@@ -973,7 +989,7 @@ async def add(client: Client, message: Message):
 	try:await get_messages()
 	except:await send_config()
 	if username in boss:
-		list = message.split(" ")						
+		list = message.text.split(" ")						
 		uss = list[1]
 		Configs[uss] ={"z":99,"m":"u","a":"c","t":"y"}	
 		await send_config()
@@ -989,7 +1005,7 @@ async def kick(client: Client, message: Message):
 	try:await get_messages()
 	except:await send_config()
 	if username in boss:			
-		list = message.split(" ")
+		list = message.text.split(" ")
 		uss = list[1]
 		del Configs[uss]
 		await send_config()
@@ -1000,7 +1016,7 @@ async def kick(client: Client, message: Message):
 
 #descarga de archivos y enlaces
 @bot.on_message(filters.media & filters.private)
-async def delete_draft(client: Client, message: Message):
+async def delete_draft_y_down_media(client: Client, message: Message):
 	username = message.from_user.username
 	send = message.reply
 	try:await get_messages()
@@ -1016,14 +1032,14 @@ async def delete_draft(client: Client, message: Message):
 		return
 
 @bot.on_message(filters.regex(".*https://.*") & filters.regex(".*http://.*") & filters.private)
-async def delete_draft(client: Client, message: Message):
+async def down_link(client: Client, message: Message):
 	username = message.from_user.username
 	send = message.reply
 	user_id = message.from_user.id
 	try:await get_messages()
 	except:await send_config()
 	if "youtu.be/" in message or "twitch.tv/" in message or "youtube.com/" in message or "xvideos.com" in message or "xnxx.com" in message:
-		list = message.split(" ")
+		list = message.text.split(" ")
 		url = list[0]
 		try:format = str(list[1])
 		except:format = "720"
