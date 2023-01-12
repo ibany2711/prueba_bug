@@ -1066,6 +1066,7 @@ async def delete_draft_y_down_media(client: Client, message: Message):
 
 @bot.on_message(filters.regex("https://") | filters.regex("http://") & filters.private)
 async def down_link(client: Client, message: Message):
+	if message.from_user.is_bot: return
 	global procesos
 	try:username = message.from_user.username
 	except:
