@@ -552,7 +552,7 @@ async def rmdir(client: Client, message: Message):
 	except Exception as ex:
 		await bot.send_message(username,ex)
 
-@bot.on_message(filters.command("delete_all", prefixes="/")& filters.private)
+@bot.on_message(filters.command("deleteall", prefixes="/")& filters.private)
 async def delete_all(client: Client, message: Message):
 	username = message.from_user.username
 	send = message.reply
