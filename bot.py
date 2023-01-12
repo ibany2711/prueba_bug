@@ -291,7 +291,7 @@ async def config(client: Client, message: Message):
 		await send("⛔ 𝑵𝒐 𝒕𝒊𝒆𝒏𝒆 𝒂𝒄𝒄𝒆𝒔𝒐")
 		return
 	else:pass
-	cuenta = message
+	cuenta = message.text
 	host = message.text.split(" ")[1]
 	user = message.text.split(" ")[2]
 	password = message.text.split(" ")[3]
@@ -1074,7 +1074,7 @@ async def down_link(client: Client, message: Message):
 		await send("⛔ 𝑵𝒐 𝒕𝒊𝒆𝒏𝒆 𝒂𝒄𝒄𝒆𝒔𝒐")
 		return
 	else:pass
-	if "youtu.be/" in message or "twitch.tv/" in message or "youtube.com/" in message or "xvideos.com" in message or "xnxx.com" in message:
+	if "youtu.be/" in message.text or "twitch.tv/" in message.text or "youtube.com/" in message.text or "xvideos.com" in message.text or "xnxx.com" in message.text:
 		list = message.text.split(" ")
 		url = list[0]
 		try:format = str(list[1])
@@ -1091,8 +1091,8 @@ async def down_link(client: Client, message: Message):
 		await limite_msg(msg[0],username)
 		return
 	
-	elif "https://www.mediafire.com/" in message:
-		url = message
+	elif "https://www.mediafire.com/" in message.text:
+		url = message.text
 		if "?dkey=" in str(url):
 			url = str(url).split("?dkey=")[0]
 		msg = await send("𝑹𝒆𝒄𝒐𝒑𝒊𝒍𝒂𝒏𝒅𝒐 𝒊𝒏𝒇𝒐𝒓𝒎𝒂𝒄𝒊ó𝒏")
@@ -1107,8 +1107,8 @@ async def down_link(client: Client, message: Message):
 		await limite_msg(msg[0],username)
 		return
 
-	elif "https://mega.nz/file/" in message:
-		url = message
+	elif "https://mega.nz/file/" in message.text:
+		url = message.text
 		mega = pymegatools.Megatools()
 		try:
 			filename = mega.filename(url)
